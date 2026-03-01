@@ -194,6 +194,20 @@ export default function App() {
         </Reveal>
       </section>
 
+      {/* Video Demo Section */}
+      <section className="py-20 px-6 text-center">
+        <h2 className="text-3xl font-display font-bold mb-6">Vezi cum funcționează</h2>
+        <div className="w-full max-w-5xl mx-auto aspect-video">
+          <iframe
+            src="https://drive.google.com/file/d/1i3WW5jxT9TL-NzcpK7AmmO5DFSL93XZN/preview"
+            className="w-full h-full"
+            allow="autoplay; fullscreen"
+            allowFullScreen
+            title="Demo video"
+          />
+        </div>
+      </section>
+
       {/* Human Section */}
       <section className="py-32 relative overflow-hidden bg-gradient-to-b from-dark-surface to-dark-bg border-y border-whatsapp/10">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
