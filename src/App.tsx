@@ -67,7 +67,7 @@ const ShieldCard = ({ num, icon, title, desc, value, delay = 0 }: { num: string;
   </Reveal>
 );
 
-const PricingCard = ({ tier, price, features, featured = false, delay = 0 }: { tier: string; price: string; features: string[]; featured?: boolean; delay?: number }) => (
+const PricingCard = ({ tier, price, features, featured = false, delay = 0, onAction }: { tier: string; price: string; features: string[]; featured?: boolean; delay?: number; onAction?: () => void }) => (
   <Reveal delay={delay}>
     <div className={`rounded-3xl p-9 relative overflow-hidden border transition-all hover:-translate-y-1.5 ${featured ? 'bg-gradient-to-br from-[#0a2a14] to-[#0d3318] border-whatsapp shadow-2xl shadow-whatsapp/10' : 'bg-dark-surface border-whatsapp/15'}`}>
       {featured && (
@@ -90,7 +90,7 @@ const PricingCard = ({ tier, price, features, featured = false, delay = 0 }: { t
           </li>
         ))}
       </ul>
-      <button className={`w-full py-3.5 rounded-xl font-display font-bold text-sm transition-all tracking-wide ${featured ? 'bg-whatsapp text-dark-bg shadow-lg shadow-whatsapp/20 hover:bg-[#2ee875] hover:shadow-whatsapp/40' : 'bg-transparent text-whatsapp border border-whatsapp hover:bg-whatsapp/10'}`}>
+      <button onClick={onAction} className={`w-full py-3.5 rounded-xl font-display font-bold text-sm transition-all tracking-wide ${featured ? 'bg-whatsapp text-dark-bg shadow-lg shadow-whatsapp/20 hover:bg-[#2ee875] hover:shadow-whatsapp/40' : 'bg-transparent text-whatsapp border border-whatsapp hover:bg-whatsapp/10'}`}>
         {featured ? '🚀 Cel mai ales' : '📱 Contactează-ne'}
       </button>
     </div>
@@ -122,6 +122,16 @@ const FAQItem = ({ q, a }: { q: string; a: string }) => {
 };
 
 export default function App() {
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const openWhatsApp = (msg?: string) => {
+    const text = encodeURIComponent(msg || 'Salut! Sunt interesat de sistem.');
+    window.open(`https://wa.me/40750270041?text=${text}`, '_blank');
+  };
+
   return (
     <div className="noise-overlay min-h-screen selection:bg-whatsapp/30">
       {/* Navigation */}
@@ -164,11 +174,11 @@ export default function App() {
         </Reveal>
 
         <Reveal delay={0.3}>
-          <div className="flex flex-wrap gap-4 justify-center mb-20">
-            <button className="bg-whatsapp text-dark-bg font-display font-bold px-9 py-4 rounded-xl hover:bg-[#2ee875] transition-all hover:-translate-y-1 shadow-xl shadow-whatsapp/20 flex items-center gap-2">
+            <div className="flex flex-wrap gap-4 justify-center mb-20">
+            <button onClick={() => openWhatsApp('Salut, vreau sistemul')} className="bg-whatsapp text-dark-bg font-display font-bold px-9 py-4 rounded-xl hover:bg-[#2ee875] transition-all hover:-translate-y-1 shadow-xl shadow-whatsapp/20 flex items-center gap-2">
               📱 Vreau sistemul <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="border border-white/15 text-white font-display font-bold px-9 py-4 rounded-xl hover:border-whatsapp hover:text-whatsapp transition-all">
+            <button onClick={() => scrollTo('pricing')} className="border border-white/15 text-white font-display font-bold px-9 py-4 rounded-xl hover:border-whatsapp hover:text-whatsapp transition-all">
               Cum funcționează ↓
             </button>
           </div>
@@ -346,6 +356,7 @@ export default function App() {
                 "Toate cele 12 protecții anti-ban"
               ]}
               delay={0.1}
+              onAction={() => openWhatsApp('Sunt interesat de pachet Starter')}
             />
             <PricingCard 
               tier="Professional" 
@@ -361,6 +372,7 @@ export default function App() {
                 "Dashboard live configurat"
               ]}
               delay={0.2}
+              onAction={() => openWhatsApp('Sunt interesat de pachet Professional')}
             />
             <PricingCard 
               tier="Enterprise" 
@@ -375,6 +387,7 @@ export default function App() {
                 "Adaptare completă industria ta"
               ]}
               delay={0.3}
+              onAction={() => openWhatsApp('Sunt interesat de pachet Enterprise')}
             />
           </div>
 
@@ -455,7 +468,7 @@ export default function App() {
           <div className="font-display font-extrabold text-3xl md:text-5xl text-whatsapp tracking-tight mb-12 relative">
             📱 +40 750 270 041
           </div>
-          <button className="bg-whatsapp text-dark-bg font-display font-bold px-12 py-5 rounded-xl hover:bg-[#2ee875] transition-all hover:-translate-y-1 shadow-2xl shadow-whatsapp/30 relative text-lg">
+          <button onClick={() => openWhatsApp('Salut, vreau o demonstrație live')} className="bg-whatsapp text-dark-bg font-display font-bold px-12 py-5 rounded-xl hover:bg-[#2ee875] transition-all hover:-translate-y-1 shadow-2xl shadow-whatsapp/30 relative text-lg">
             Scrie-ne pe WhatsApp acum →
           </button>
         </Reveal>
